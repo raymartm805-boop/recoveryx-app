@@ -1,0 +1,17 @@
+services:
+  recoveryx:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      SESSION_SECRET: ${SESSION_SECRET:?Set SESSION_SECRET in .env}
+      DB_FILE: /app/data/recoveryx.sqlite
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+    volumes:
+      - recoveryx_data:/app/data
+volumes:
+  recoveryx_data:
